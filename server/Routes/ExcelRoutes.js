@@ -8,5 +8,6 @@ router.get("/getemployeedata", ExcelController.getDatabaseData);
 router.post("/deletedata", ExcelController.deleteData);
 router.post("/updatedata", ExcelController.editData);
 router.post("/saveemployee", ExcelController.saveEmployee);
+router.post("/addcolumn", ExcelController.addColumn);
 
 module.exports = router

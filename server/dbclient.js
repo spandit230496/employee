@@ -123,7 +123,6 @@ async function getData(columns = "*", groupBy = "", aggregatedColumns = "",limit
     ${groupBy ? `GROUP BY ${groupBy}` : ''}
     LIMIT ${limit} OFFSET ${offset}`;
 
-    console.log(sqlQuery)
     try {
         const client = await pool.connect();
         const res = await client.query(sqlQuery);
@@ -169,7 +168,6 @@ async function deleteData(id){
     try {
         const client = await pool.connect();
         const deleteData = `DELETE FROM users WHERE employeeid = CAST('${id}' AS VARCHAR)`;
-        console.log(deleteData,"query");
         await client.query(deleteData);
         client.release();
         console.log('data deleted successfully');
@@ -180,11 +178,9 @@ async function deleteData(id){
 }
 
 async function updateEmployeeData(data) {
-    console.log(data,"data")
     try {
         const client = await pool.connect();
         const updateData = `UPDATE users SET ${Object.keys(data).map(key => `${key} = '${data[key]}'`).join(', ')} WHERE employeeid =  CAST(${data.employeeid} AS VARCHAR)`;
-        console.log(updateData,"query");
         
         await client.query(updateData);
         getData()
@@ -213,4 +209,17 @@ async function insertSingleData(data) {
     }
 }
 
-module.exports = { upsertEmployeeData,getData,insertData,alterTable ,createTable,deleteData,updateEmployeeData,insertSingleData};
+async function addColumn(columnName) {
+    try {
+        const client = await pool.connect();
+        const addColumnQuery = `ALTER TABLE users ADD COLUMN ${columnName} VARCHAR(255)`;
+        await client.query(addColumnQuery);
+        client.release();
+        console.log('Column added successfully');
+    } catch (err) {
+        console.error('Error adding column:', err.stack);
+        throw err;
+    }
+}
+
+module.exports = { upsertEmployeeData,getData,insertData,alterTable ,createTable,deleteData,updateEmployeeData,insertSingleData,addColumn};
