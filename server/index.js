@@ -1,9 +1,15 @@
 const express = require("express")
 const app= express()
-const pool= require("./dbclient")
+const ExcelRoutes = require("./Routes/ExcelRoutes")
+const cors = require("cors")
 
-app.get("/", (req, res) => {
-    res.send("Hello World!")
+
+app.use(express.json())
+app.use(cors())
+app.use("/", ExcelRoutes)
+
+
+
+app.listen(8080, () => {
+    console.log("Server started on port 8080")
 })
-
-app.listen(8080)
