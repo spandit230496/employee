@@ -194,7 +194,6 @@ async function updateEmployeeData(data) {
 async function insertSingleData(data) {
     const columns = Object.keys(data);
     let insertDataQuery = `INSERT INTO users (${columns.map(column => `"${column.toLowerCase()}"`).join(', ')}) VALUES `;
-
     try {
         const client = await pool.connect();
         insertDataQuery += `(${columns.map(column => `'${data[column]}'`).join(', ')})`;
@@ -221,5 +220,17 @@ async function addColumn(columnName) {
         throw err;
     }
 }
+async function deleteColumn(columnName) {
+    try {
+        const client = await pool.connect();
+        const addColumnQuery = `ALTER TABLE users DROP COLUMN ${columnName}`;
+        await client.query(addColumnQuery);
+        client.release();
+        console.log('Column deleted successfully');
+    } catch (err) {
+        console.error('Error deleting column:', err.stack);
+        throw err;
+    }
+}
 
-module.exports = { upsertEmployeeData,getData,insertData,alterTable ,createTable,deleteData,updateEmployeeData,insertSingleData,addColumn};
+module.exports = { upsertEmployeeData,getData,insertData,alterTable ,createTable,deleteData,updateEmployeeData,insertSingleData,addColumn,deleteColumn};

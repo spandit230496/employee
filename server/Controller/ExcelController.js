@@ -41,3 +41,10 @@ exports.addColumn = async (req, res) => {
     res.send({
         message: 'Column added successfully',});
 };
+
+exports.deleteColumn = async (req, res) => {
+    const { columnName } = req.body;
+    const response = await ExcelService.deleteColumn(columnName);
+    res.send({
+        message: 'Column deleted successfully',});
+};

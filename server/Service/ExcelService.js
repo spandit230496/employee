@@ -29,5 +29,9 @@ exports.saveEmployee=async(data)=>{
     const response= await dbClient.insertSingleData(data);
     return response
 }
+exports.deleteColumn=async(columnname)=>{
+    const response= await dbClient.deleteColumn(columnname);
+    return response
+}
 
 

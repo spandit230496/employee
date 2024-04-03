@@ -9,5 +9,6 @@ router.post("/deletedata", ExcelController.deleteData);
 router.post("/updatedata", ExcelController.editData);
 router.post("/saveemployee", ExcelController.saveEmployee);
 router.post("/addcolumn", ExcelController.addColumn);
+router.post("/deletecolumn", ExcelController.deleteColumn);
 
 module.exports = router
