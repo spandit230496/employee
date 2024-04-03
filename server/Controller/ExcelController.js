@@ -9,8 +9,8 @@ exports.getExcelData = async (req, res) => {
 };
 
 exports.getDatabaseData = async (req, res) => {
-    const { columns, groupBy, aggregatedColumns, limit, offset } = req.query;
-    const response = await ExcelService.getDatabaseData(columns, groupBy, aggregatedColumns, limit, offset);
+    const { columns, groupBy, aggregatedColumns, limit, offset,operator,alias } = req.query;
+    const response = await ExcelService.getDatabaseData(columns, groupBy, aggregatedColumns, limit, offset,operator,alias);
     console.log(response);
     res.send(response);
 };

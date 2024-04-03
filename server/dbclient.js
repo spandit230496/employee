@@ -116,7 +116,14 @@ async function alterTable(sqlQuery,data) {
 }
 
 async function getData(columns = "*", groupBy = "", aggregatedColumns = "",limit=10,offset=0) {
-    let sqlQuery = `SELECT ${aggregatedColumns ? aggregatedColumns + '(' : ''}${columns}${aggregatedColumns ? ')' : ''} FROM users${groupBy ? ` GROUP BY ${groupBy}` : ''} LIMIT ${limit} OFFSET ${offset}`;
+    let sqlQuery = `SELECT 
+    ${groupBy ? `${groupBy},` : ''}
+    ${aggregatedColumns ? `${aggregatedColumns}(${columns}) AS ${aggregatedColumns}` : columns} 
+    FROM users
+    ${groupBy ? `GROUP BY ${groupBy}` : ''}
+    LIMIT ${limit} OFFSET ${offset}`;
+
+    console.log(sqlQuery)
     try {
         const client = await pool.connect();
         const res = await client.query(sqlQuery);

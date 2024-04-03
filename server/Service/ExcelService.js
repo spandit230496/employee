@@ -7,11 +7,13 @@ exports.saveExcelData = async (exceldata) => {
     return response
 };
 
-exports.getDatabaseData=async(columns, groupBy, aggregatedColumns, limit, offset)=>{
-    const response= await dbClient.getData(columns, groupBy, aggregatedColumns, limit, offset);
-    console.log(response)
-    return response
-}
+exports.getDatabaseData = async (columns, groupBy, aggregatedColumns, limit, offset, operator, alias) => {
+    const response = await dbClient.getData(columns, groupBy, aggregatedColumns, limit, offset, operator, alias);
+
+    console.log(response);
+    return response;
+};
+
 
 exports.deleteData=async(id)=>{
     const response= await dbClient.deleteData(id);
