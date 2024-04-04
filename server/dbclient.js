@@ -79,7 +79,7 @@ async function upsertEmployeeData(exceldata) {
         } else {
             const primaryKey = excelcolumn.find(col => col.toLowerCase() === 'employeeid' || col.toLowerCase() === 'employeeid' || col.toLowerCase() === 'employeeid');
             const primaryKeyConstraint = primaryKey ? `, PRIMARY KEY (${primaryKey})` : '';
-            const createTableQuery = `CREATE TABLE IF NOT EXISTS users (${excelcolumn.map(column => {
+            const createTableQuery = `CREATE TABLE IF NOT EXISTS users  (${excelcolumn.map(column => {
                 const columnName = column.toLowerCase();
                 if (columnName === primaryKey) {
                     return `${columnName} VARCHAR(255) UNIQUE`;
